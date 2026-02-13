@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+</head>
+<body>
+    <form action="/" method="post">
+        <p>
+            <label for="name">Full name:</label>
+            <input type="text" id="fullName" name="user_name" required/>
+        </p>
+        <p>
+            <label for="phone">Phone Number:</label>
+            <input type="tel"
+                id="phone"
+                name="phone"
+                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                required />
+        </p>
+        <p>
+            <label for="pickup_time">Pick-up Time:</label>
+            <input type="time"
+            id="pickup-time"
+            name="pickup-time"
+            min="08:00"
+            max="21:00"
+            step="900"
+            required />
+        </p>
+        <p>
+            
+        </p>
+    </form>
+</body>
+</html>
