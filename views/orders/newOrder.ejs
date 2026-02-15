@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form</title>
+    <title>New Order</title>
 </head>
 <body>
-    <!-- <form action="/" method="post">
+    <h1>Hello, <%= locals.firstName %></h1>
+    <form action="/orders" method="post">
         <p>
             <label for="name">Full name:
-            <input type="text" id="fullName" name="user_name" required/>
+            <input type="text" id="fullName" name="full_name" required/>
             </label>
-        </p> -->
-        <!-- <p>
+        </p>
+        <p>
             <label for="phone">Phone Number:</label>
             <input type="tel"
                 id="phone"
@@ -30,9 +31,7 @@
             step="900"
             required />
         </p>
-        <p> -->
-            
-        </p>
+        <p>
     </form>
 </body>
 </html>

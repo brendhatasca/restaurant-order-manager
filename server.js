@@ -1,6 +1,6 @@
 // Only gonna start listening for requests at the given port
 
-// import app from "./src/app.js";
+import app from "./src/app.js";
 import { env } from "./config/env.js";
 
 app.listen(env.port, () => {
