@@ -9,7 +9,7 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-    res.send("Main page still in development")
+    res.render("main/index")
 })
 
 import ordersRouter from "./routes/orders.js";

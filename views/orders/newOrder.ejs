@@ -10,28 +10,65 @@
     <form action="/orders" method="post">
         <p>
             <label for="name">Full name:
-            <input type="text" id="fullName" name="full_name" required/>
+            <input type="text" id="fullName" name="customerName" required/>
             </label>
         </p>
         <p>
-            <label for="phone">Phone Number:</label>
+            <label for="phone">Phone Number:
             <input type="tel"
                 id="phone"
                 name="phone"
                 pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                 required />
+            </label>
         </p>
         <p>
-            <label for="pickup_time">Pick-up Time:</label>
+            <label for="pickupTime">Pick-up Time:
             <input type="time"
-            id="pickup-time"
-            name="pickup-time"
+            id="pickupTime"
+            name="pickupTime"
             min="08:00"
             max="21:00"
             step="900"
             required />
+            </label>
         </p>
         <p>
+            <label for="cookedFood">Cooked Food:
+                <input type="text"
+                id="cookedFood"
+                name="cookedFood">
+            </label>
+        </p>
+        <p>
+            <label for="rawSeafood">Raw Seafood:
+                <input type="text"
+                id="rawSeafood"
+                name="rawSeafood">
+            </label>
+        </p>
+        <p>
+            <label for="oysters">Oysters:
+                <input type="text"
+                id="oysters"
+                name="oysters">
+            </label>
+        </p>
+        <p>
+            <label for="platters">Platters:
+                <input type="text"
+                id="platters"
+                name="platters">
+            </label>
+        </p>
+        <p>
+            <label for="notes">Notes:
+                <input type="text"
+                id="notes"
+                name="notes">
+            </label>
+        </p>
+        <button type="submit">Create Order</button>
     </form>
 </body>
 </html>

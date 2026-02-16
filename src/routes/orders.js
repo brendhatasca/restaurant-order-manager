@@ -1,6 +1,8 @@
 import express from "express";
 const router = express.Router();
 
+import { appendRow } from "../../services/googleSheetsService.js";
+
 // route handler for HTTP GET req to the root path
 router.get("/", (req, res) => {
     res.send("Orders directory");
@@ -15,6 +17,7 @@ router.get("/new", (req, res) => {
 router.post("/", (req, res) => {
     console.log(req.body);
     res.send("Order created");
+    appendRow(req.body)
 });
 
 
