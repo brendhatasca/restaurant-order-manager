@@ -19,29 +19,54 @@ export async function accessSpreadsheet() {
     await doc.loadInfo();
     console.log("Connected to:", doc.title);
 
-    const sheet = doc.sheetsByIndex[0];
-    console.log("Sheet name:", sheet.title);
+    // const sheet = doc.sheetsByTitle[sheetName];
+    // console.log("Sheet name:", sheet.title);
 
-    return {
-        doc,
-        sheet
-    };
+    return doc;
 };
 
-const customer1 = {
-  fullName: 'Brendha',
-  phone: '437-971-6848',
-  pickupTime: '08:15',
-  cookedFood: 'food here'
+export async function createNewWorksheet(sheetName) {
+    const doc = await accessSpreadsheet();
+    const sheet = doc.addSheet(sheetName);
+
+    console.log("Sheet added succesfully.")
+    
+    // create new worksheet for different days
 }
 
-export async function appendRow(raw) {
-    const { doc, sheet } = await accessSpreadsheet();
-    // const { fullName, phone, pickupTime, cookedFood, rawSeafood, oysters, notes } = raw
+export async function appendRow(raw, sheetName) {
+    // load spreadsheet
+    const doc = await accessSpreadsheet(sheetName);
+    const sheet = doc.sheetsByTitle[sheetName];
 
-    await sheet.addRow(raw)
+    // Append row to DB
+    const row = await sheet.addRow(raw);
+
+    // get row number
+    const orderId = row.rowNumber;
+    // set orderId as row number
+    row.set("orderId", orderId);
+
+    const today = new Date();
+    row.set("timestamp", format(today, "dd-MM-yyyy"));
+
+    // save changes
+    await row.save();
+
+}
+
+export async function getOrders(sheetName) {
+    const doc = await accessSpreadsheet(sheetName);
+    const sheet = doc.sheetsByTitle[sheetName];
+
 
     const rows = await sheet.getRows();
-    console.log(rows[0])
-    console.log(rows[1])
-}
+    let orders = [];
+
+    rows.forEach( row => {
+        orders.push(row.toObject());
+    });
+
+    return orders
+};
+

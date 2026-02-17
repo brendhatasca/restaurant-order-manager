@@ -14,7 +14,11 @@ app.get("/", (req, res) => {
 
 import ordersRouter from "./routes/orders.js";
 
-app.use("/orders", ordersRouter)
+app.use("/orders", ordersRouter);
+
+import eventsRouter from "./routes/events.js";
+
+app.use("/events", eventsRouter)
 
 
 

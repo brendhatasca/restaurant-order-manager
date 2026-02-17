@@ -3,10 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/styles.css">
     <title>New Order</title>
 </head>
 <body>
-    <h1>Hello, <%= locals.firstName %></h1>
+       <header class="page-header">
+        <p class="eyebrow">The Mermaid &nbsp;·&nbsp; New Order</p>
+        <h1>Hello, <span><%= locals.firstName %></span></h1>
+    </header>
+
+    <div class="card">
+        <div class="card-band"></div>
+        <div class="card-body">
+
+            <form action="/orders" method="post">
+
+                <!-- Customer info -->
+                <p class="section-label">Customer details</p>
+                <div class="row">
+                    <div class="field">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" name="customerName" placeholder="Jane Smith" required />
+                    </div>
+                    <div class="field">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel"
+                            id="phone"
+                            name="phone"
+                            placeholder="555-867-5309"
+                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                            required />
+                        <span class="hint">Format: 000-000-0000</span>
+                    </div>
+                </div>
+
+                <div class="field" style="margin-top: 18px;">
+                    <label for="pickupTime">Pick-up Time</label>
+                    <input type="time"
+                        id="pickupTime"
+                        name="pickupTime"
+                        min="08:00"
+                        max="21:00"
+                        step="900"
+                        required />
+                    <span class="hint">Available 8:00 AM – 9:00 PM, in 15-minute slots</span>
+                </div>
+
+                <!-- Order items -->
+                <p class="section-label">Order items</p>
+
+                <div class="row">
+                    <div class="field">
+                        <label for="cookedFood">Cooked Food</label>
+                        <textarea id="cookedFood" name="cookedFood" placeholder="e.g. Lobster roll × 2…"
+                            oninput="this.style.height='';this.style.height=this.scrollHeight+'px'"></textarea>
+                    </div>
+                    <div class="field">
+                        <label for="rawSeafood">Raw Seafood</label>
+                        <textarea id="rawSeafood" name="rawSeafood" placeholder="e.g. Tuna 1 lb…"
+                            oninput="this.style.height='';this.style.height=this.scrollHeight+'px'"></textarea>
+                    </div>
+                    <div class="field">
+                        <label for="oysters">Oysters</label>
+                        <textarea id="oysters" name="oysters" placeholder="e.g. Wellfleet × 12…"
+                            oninput="this.style.height='';this.style.height=this.scrollHeight+'px'"></textarea>
+                    </div>
+                    <div class="field">
+                        <label for="platters">Platters</label>
+                        <textarea id="platters" name="platters" placeholder="e.g. Seafood platter L…"
+                            oninput="this.style.height='';this.style.height=this.scrollHeight+'px'"></textarea>
+                    </div>
+                </div>
+
+                <!-- Notes -->
+                <p class="section-label">Additional notes</p>
+                <div class="field">
+                    <textarea id="notes" name="notes" placeholder="Allergies, special requests, or anything else…"
+                        oninput="this.style.height='';this.style.height=this.scrollHeight+'px'"
+                        style="min-height:90px;"></textarea>
+                </div>
+
+                <div class="submit-wrap">
+                    <span class="submit-note">All starred fields are required before submitting.</span>
+                    <button type="submit">Create Order →</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- <h1>Hello, <%= locals.firstName %></h1>
     <form action="/orders" method="post">
         <p>
             <label for="name">Full name:
@@ -35,40 +121,41 @@
         </p>
         <p>
             <label for="cookedFood">Cooked Food:
-                <input type="text"
+                <textarea type="text"
                 id="cookedFood"
-                name="cookedFood">
+                name="cookedFood"
+                oninput="this.style.height='';this.style.height=this.scrollHeight+'px'"></textarea>
             </label>
         </p>
         <p>
             <label for="rawSeafood">Raw Seafood:
-                <input type="text"
+                <textarea type="text"
                 id="rawSeafood"
-                name="rawSeafood">
+                name="rawSeafood"></textarea>
             </label>
         </p>
         <p>
             <label for="oysters">Oysters:
-                <input type="text"
+                <textarea type="text"
                 id="oysters"
-                name="oysters">
+                name="oysters"></textarea>
             </label>
         </p>
         <p>
             <label for="platters">Platters:
-                <input type="text"
+                <textarea type="text"
                 id="platters"
-                name="platters">
+                name="platters"></textarea>
             </label>
         </p>
         <p>
             <label for="notes">Notes:
-                <input type="text"
+                <textarea type="text"
                 id="notes"
-                name="notes">
+                name="notes"></textarea>
             </label>
         </p>
         <button type="submit">Create Order</button>
-    </form>
+    </form> -->
 </body>
 </html>
