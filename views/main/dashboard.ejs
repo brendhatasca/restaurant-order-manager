@@ -4,9 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/app.js" defer></script>
+    <link rel="stylesheet" href="/styles/main.css">
     <title>Dashboard</title>
 </head>
 <body>
-    <button type="button" id="create-folder-btn">New Folder</button>
+    <div class="dashboard-header">
+  <div>
+    <p class="eyebrow">Order Manager</p>
+    <h1 class="dashboard-title">Upcoming <span>Holidays</span></h1>
+  </div>
+</div>
+
+<div class="events-grid">
+  <% sheets.forEach(sheet => { %>
+    <a class="event-card" href="/orders/<%= slugify(sheet) %>">
+      <div class="event-card-band"></div>
+      <div class="event-card-body">
+        <!-- <span class="event-card-icon">🗂</span> -->
+        <div class="event-card-title"><%= sheet %></div>
+        <div class="event-card-meta">View orders</div>
+      </div>
+    </a>
+  <% }) %>
+</div>
+
+  <button class="btn-new-event" id="create-folder-btn">
+    <span class="plus-icon">+</span> New Event
+  </button>
+
 </body>
 </html>

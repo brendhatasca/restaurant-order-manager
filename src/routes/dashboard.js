@@ -2,10 +2,13 @@
 
 import express from "express";
 const router = express.Router();
-import { createNewWorksheet } from "../../services/googleSheetsService.js";
+import { createNewWorksheet, getWorksheets } from "../../services/googleSheetsService.js";
 
-router.get("/", (req, res) => {
-    res.render("main/dashboard")
+const slugify = (name) => name.replace(/\s+/g, '-').toLowerCase();
+
+router.get("/", async (req, res) => {
+    const sheets = await getWorksheets();
+    res.render("main/dashboard", { sheets, slugify });
 })
 
 // route handler for POST req from frontend to the GoogleSheets api

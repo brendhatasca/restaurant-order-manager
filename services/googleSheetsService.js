@@ -40,7 +40,7 @@ export async function createNewWorksheet(sheetName) {
         return existingSheet
     };
 
-    const newSheet = doc.addSheet({
+    const newSheet = await doc.addSheet({
         title: sheetName,
         headerValues: [
         "timestamp",
@@ -57,8 +57,7 @@ export async function createNewWorksheet(sheetName) {
     });
 
     console.log("Sheet created succesfully.");
-    
-}
+};
 
 export async function appendRow(raw, sheetName) {
     // load spreadsheet
@@ -85,7 +84,6 @@ export async function getOrders(sheetName) {
     const doc = await accessSpreadsheet();
     const sheet = doc.sheetsByTitle[sheetName];
 
-
     const rows = await sheet.getRows();
     let orders = [];
 
@@ -96,3 +94,14 @@ export async function getOrders(sheetName) {
     return orders;
 };
 
+export async function getWorksheets() {
+    const doc = await accessSpreadsheet();
+    const sheets = doc.sheetsByIndex;
+    let titles = [];
+
+    sheets.forEach(sheet => {
+        titles.push(sheet._rawProperties.title);
+    })
+
+    return titles;
+}
