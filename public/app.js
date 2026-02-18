@@ -7,7 +7,7 @@ createFolderBtn.addEventListener("click", () => {
     console.log(folderName)
 
     // Send folder name to backend, which create a new Google Sheets Worksheet
-    fetch("/api/create-sheet", {
+    fetch("dashboard/api/create-sheet", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({ sheetName: folderName })

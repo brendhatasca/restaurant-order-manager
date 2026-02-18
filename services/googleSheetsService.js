@@ -2,6 +2,7 @@ import {format} from 'date-fns';
 import {env} from '../config/env.js'
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 import { JWT } from 'google-auth-library';
+import { se } from 'date-fns/locale';
 
 export async function accessSpreadsheet() {
     const SCOPES = [
@@ -26,17 +27,42 @@ export async function accessSpreadsheet() {
 };
 
 export async function createNewWorksheet(sheetName) {
-    const doc = await accessSpreadsheet();
-    const sheet = doc.addSheet(sheetName);
+    // Creates new worksheet (new event)
 
-    console.log("Sheet added succesfully.")
+    const doc = await accessSpreadsheet();
+
+    console.log(sheetName);
+
+    const existingSheet = doc.sheetsByTitle[sheetName];
+
+    if (existingSheet) {
+        console.log(`Sheet ${sheetName} already exists.`)
+        return existingSheet
+    };
+
+    const newSheet = doc.addSheet({
+        title: sheetName,
+        headerValues: [
+        "timestamp",
+        "orderId",
+        "pickupTime",
+        "customerName",
+        "phone",
+        "cookedFood",
+        "rawSeafood",
+        "oysters",
+        "platters",
+        "notes"
+        ]
+    });
+
+    console.log("Sheet created succesfully.");
     
-    // create new worksheet for different days
 }
 
 export async function appendRow(raw, sheetName) {
     // load spreadsheet
-    const doc = await accessSpreadsheet(sheetName);
+    const doc = await accessSpreadsheet();
     const sheet = doc.sheetsByTitle[sheetName];
 
     // Append row to DB
@@ -56,7 +82,7 @@ export async function appendRow(raw, sheetName) {
 }
 
 export async function getOrders(sheetName) {
-    const doc = await accessSpreadsheet(sheetName);
+    const doc = await accessSpreadsheet();
     const sheet = doc.sheetsByTitle[sheetName];
 
 
@@ -67,6 +93,6 @@ export async function getOrders(sheetName) {
         orders.push(row.toObject());
     });
 
-    return orders
+    return orders;
 };
 
