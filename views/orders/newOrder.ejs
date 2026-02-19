@@ -16,7 +16,7 @@
         <div class="card-band"></div>
         <div class="card-body">
 
-            <form action="/orders" method="post">
+            <form action="/orders/<%= sheetTitle %>" method="post">
 
                 <!-- Customer info -->
                 <p class="section-label">Customer details</p>
@@ -92,70 +92,6 @@
         </div>
     </div>
 
-    <!-- <h1>Hello, <%= locals.firstName %></h1>
-    <form action="/orders" method="post">
-        <p>
-            <label for="name">Full name:
-            <input type="text" id="fullName" name="customerName" required/>
-            </label>
-        </p>
-        <p>
-            <label for="phone">Phone Number:
-            <input type="tel"
-                id="phone"
-                name="phone"
-                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                required />
-            </label>
-        </p>
-        <p>
-            <label for="pickupTime">Pick-up Time:
-            <input type="time"
-            id="pickupTime"
-            name="pickupTime"
-            min="08:00"
-            max="21:00"
-            step="900"
-            required />
-            </label>
-        </p>
-        <p>
-            <label for="cookedFood">Cooked Food:
-                <textarea type="text"
-                id="cookedFood"
-                name="cookedFood"
-                oninput="this.style.height='';this.style.height=this.scrollHeight+'px'"></textarea>
-            </label>
-        </p>
-        <p>
-            <label for="rawSeafood">Raw Seafood:
-                <textarea type="text"
-                id="rawSeafood"
-                name="rawSeafood"></textarea>
-            </label>
-        </p>
-        <p>
-            <label for="oysters">Oysters:
-                <textarea type="text"
-                id="oysters"
-                name="oysters"></textarea>
-            </label>
-        </p>
-        <p>
-            <label for="platters">Platters:
-                <textarea type="text"
-                id="platters"
-                name="platters"></textarea>
-            </label>
-        </p>
-        <p>
-            <label for="notes">Notes:
-                <textarea type="text"
-                id="notes"
-                name="notes"></textarea>
-            </label>
-        </p>
-        <button type="submit">Create Order</button>
-    </form> -->
+    
 </body>
 </html>
