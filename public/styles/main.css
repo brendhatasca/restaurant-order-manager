@@ -592,3 +592,265 @@ a .btn-new-event {
 @media (max-width: 520px) {
   .orders-grid { grid-template-columns: 1fr; margin-bottom: 0; }
 }
+
+/* ── Orders Table (List View) ───────────────── */
+
+.orders-table-wrapper {
+  background: var(--shell);
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  box-shadow:
+    0 2px 8px rgba(15,30,45,0.05),
+    0 16px 48px rgba(15,30,45,0.08);
+  overflow: hidden;
+  animation: fadeUp 0.55s 0.1s ease both;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.orders-table thead {
+  background: var(--shell);
+  border-bottom: 2px solid var(--border);
+}
+
+.orders-table th {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sea);
+  text-align: left;
+  padding: 16px 20px;
+  white-space: nowrap;
+}
+
+.orders-table th.actions-col {
+  text-align: center;
+}
+
+.orders-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background var(--transition);
+}
+
+.orders-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.orders-table tbody tr:hover {
+  background: rgba(238, 244, 248, 0.5);
+}
+
+.orders-table td {
+  padding: 18px 20px;
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.order-id-cell {
+  /* font-weight: 600; */
+  letter-spacing: 0.08em;
+  color: var(--tide);
+  font-size: 13px;
+}
+
+.pickup-time-cell {
+  font-weight: 600;
+  color: var(--sea);
+  font-size: 15px;
+}
+
+.customer-name-cell {
+  font-weight: 600;
+  color: var(--sea);
+  font-size: 15px;
+}
+
+.phone-cell {
+  color: var(--ink);
+  opacity: 0.85;
+}
+
+.created-cell {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.actions-cell {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius);
+  border: 1.5px solid var(--border);
+  background: var(--shell);
+  cursor: pointer;
+  transition: all var(--transition);
+  margin: 0 4px;
+  text-decoration: none;
+}
+
+.btn-action svg {
+  display: block;
+}
+
+.btn-edit {
+  color: var(--tide);
+  border-color: rgba(46,127,172,0.25);
+}
+
+.btn-edit:hover {
+  background: var(--tide);
+  border-color: var(--tide);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(46,127,172,0.3);
+}
+
+.btn-delete {
+  color: var(--accent);
+  border-color: rgba(201,106,47,0.25);
+}
+
+.btn-delete:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(201,106,47,0.3);
+}
+
+/* ── Responsive Table ────────────────────────── */
+@media (max-width: 768px) {
+  .orders-table-wrapper {
+    overflow-x: auto;
+  }
+
+  .orders-table {
+    min-width: 700px;
+  }
+}
+
+@media (max-width: 520px) {
+  /* Switch to card layout on mobile */
+  .orders-table-wrapper {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    overflow: visible;
+  }
+
+  .orders-table thead {
+    display: none;
+  }
+
+  .orders-table,
+  .orders-table tbody,
+  .orders-table tr {
+    display: block;
+    width: 100%;
+  }
+
+  .orders-table tbody tr {
+    background: var(--shell);
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    box-shadow:
+      0 2px 8px rgba(15,30,45,0.05),
+      0 16px 48px rgba(15,30,45,0.08);
+    margin-bottom: 16px;
+    padding: 20px;
+    position: relative;
+  }
+
+  .orders-table tbody tr:last-child {
+    margin-bottom: 0;
+  }
+
+  .orders-table tbody tr:hover {
+    background: var(--shell);
+    transform: translateY(-2px);
+    box-shadow:
+      0 4px 16px rgba(15,30,45,0.08),
+      0 24px 56px rgba(15,30,45,0.13);
+  }
+
+  .orders-table td {
+    display: block;
+    padding: 0;
+    text-align: left;
+    border: none;
+  }
+
+  .orders-table td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .order-id-cell {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 11px;
+    margin-bottom: 12px;
+  }
+
+  .order-id-cell::before {
+    display: none;
+  }
+
+  .pickup-time-cell {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .customer-name-cell {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+
+  .phone-cell {
+    margin-bottom: 8px;
+  }
+
+  .created-cell {
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .actions-cell {
+    text-align: left;
+    padding-top: 12px;
+  }
+
+  .actions-cell::before {
+    content: 'Actions';
+  }
+
+  .btn-action {
+    width: 38px;
+    height: 38px;
+    margin-right: 8px;
+  }
+
+  .btn-action:last-child {
+    margin-right: 0;
+  }
+}

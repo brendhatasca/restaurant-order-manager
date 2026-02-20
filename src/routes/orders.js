@@ -1,6 +1,7 @@
 import express from "express";
 const router = express.Router();
 
+import { slugToTitleCase } from "../../helpers/formatString.js";
 import { formatCreatedAt, formatPickupTime } from "../../helpers/formatDate.js";
 import { appendRow, getOrders, getOrderById } from "../../services/googleSheetsService.js";
 

@@ -14,25 +14,30 @@ function titleCase(str) {
     .join(' '); // Join the words back into a single string with spaces
 }
 
-createEventBtn.addEventListener("click", () => {
-    const eventName = prompt("Enter folder name (E.g: Christmas Eve):")
-    if (!eventName) return
+if (createEventBtn) {
+    createEventBtn.addEventListener("click", () => {
+        const eventName = prompt("Enter folder name (E.g: Christmas Eve):")
+        if (!eventName) return
 
-   eventName =  titleCase(eventName)
+    eventName =  titleCase(eventName)
 
-    // Send folder name to backend, which create a new Google Sheets Worksheet
-    fetch("dashboard/api/create-sheet", {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({ sheetName: eventName })
-    })
-    .then(res => res.json())
-    .then(data => {
-        if(data.success) alert(`Event ${eventName} created.`)
+        // Send folder name to backend, which create a new Google Sheets Worksheet
+        fetch("dashboard/api/create-sheet", {
+            method: "POST",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify({ sheetName: eventName })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.success) alert(`${eventName} created.`)
+        });
     });
-});
+};
 
-createNewOrderBtn.addEventListener("click", (e) => {
+if (createNewOrderBtn) {
+    createNewOrderBtn.addEventListener("click", (e) => {
     const eventName = e.target.dataset.event;
-    window.location.href = `/orders.${eventName}/new`
-})
+    console.log(eventName);
+    window.location.href = `/orders/${eventName}/new`;
+});
+}
