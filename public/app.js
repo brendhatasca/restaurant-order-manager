@@ -1,6 +1,8 @@
 const createEventBtn = document.getElementById("create-folder-btn");
 const eventsContainer = document.getElementById("events-container");
 const createNewOrderBtn = document.getElementById("btn-new-order");
+const orderListWrapper = document.querySelectorAll(".order-list-wrapper");
+const tbody = document.querySelector("tbody");
 
 function titleCase(str) {
   // Convert the entire string to lowercase first to ensure consistency
@@ -36,8 +38,33 @@ if (createEventBtn) {
 
 if (createNewOrderBtn) {
     createNewOrderBtn.addEventListener("click", (e) => {
-    const eventName = e.target.dataset.event;
-    console.log(eventName);
-    window.location.href = `/orders/${eventName}/new`;
-});
-}
+        const eventName = e.target.dataset.event;
+        console.log(eventName);
+        window.location.href = `/orders/${eventName}/new`;
+    });
+};
+
+// if (orderListWrapper) {
+//     orderListWrapper.forEach(order => {
+//         order.addEventListener("click", (e) => {
+//             console.log(e.target)
+//         });
+//     })
+// }
+
+if (tbody) {
+    tbody.addEventListener("click", (e) => {
+        if (e.target.closest(".btn-action")) return;
+        console.log(e.target)
+
+        const row = e.target.closest(".order-list-wrapper");
+        if (!row) return;
+
+        const orderId = row.dataset.orderId;
+        const sheetTitle = row.dataset.sheetTitle;
+
+        console.log(orderId, sheetTitle);
+
+        window.location.href = `/orders/${sheetTitle}/${orderId}`
+    });
+};

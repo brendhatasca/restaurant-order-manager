@@ -50,7 +50,9 @@
         </thead>
         <tbody>
           <% orders.forEach(order => { %>
-            <tr>
+            <tr class="order-list-wrapper"
+                data-order-id="<%= order.orderId %>"
+                data-sheet-title="<%= sheetTitle %>">
               <td class="order-id-cell" data-label="ID">#<%= order.orderId %></td>
               <td class="pickup-time-cell" data-label="Pickup Time"><%= formatPickupTime(order.pickupTime) %></td>
               <td class="customer-name-cell" data-label="Customer"><%= order.customerName %></td>

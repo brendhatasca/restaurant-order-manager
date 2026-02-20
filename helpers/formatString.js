@@ -10,4 +10,7 @@ export function slugToTitleCase(slug) {
 
   // Join the words back together with a space
   return titleCasedWords.join(' ');
-}
+};
+
+export const slugify = (name) => name.replace(/\s+/g, '-').toLowerCase();
+

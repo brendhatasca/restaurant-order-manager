@@ -20,8 +20,7 @@
     <a class="event-card" href="/orders/<%= sheet %>">
       <div class="event-card-band"></div>
       <div class="event-card-body">
-        <!-- <span class="event-card-icon">🗂</span> -->
-        <div class="event-card-title"><%= sheet %></div>
+        <div class="event-card-title"><%= slugToTitleCase(sheet) %></div>
         <div class="event-card-meta">View orders</div>
       </div>
     </a>

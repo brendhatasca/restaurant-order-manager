@@ -594,7 +594,9 @@ a .btn-new-event {
 }
 
 /* ── Orders Table (List View) ───────────────── */
-
+.order-list-wrapper {
+  cursor: pointer;
+}
 .orders-table-wrapper {
   background: var(--shell);
   border-radius: 18px;
