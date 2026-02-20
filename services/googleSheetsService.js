@@ -115,11 +115,26 @@ export async function getOrderById(sheetName, orderId) {
     console.log(sheetName, orderId)
     const doc = await accessSpreadsheet();
     const sheet = doc.sheetsByTitle[sheetName];
-
     const rows = await sheet.getRows();
 
     const match = rows.find(row => row.get('orderId') == orderId);
     return match ? match.toObject() : null;
+};
+
+export async function deleteOrder(sheetName, orderId) {
+    const doc = await accessSpreadsheet();
+    const sheet = doc.sheetsByTitle[sheetName];
+    const rows = await sheet.getRows();
+
+    // find order that matches Order ID
+    const order = rows.find(row => row.get("orderId") == orderId);
+    
+    if(order) {
+        order.delete();
+        console.log("Order successfully deleted.")
+    } else {
+        console.log("Order not found.")
+    }
 }
 
 export async function getWorksheets() {
@@ -132,4 +147,4 @@ export async function getWorksheets() {
     })
 
     return titles;
-}
+};

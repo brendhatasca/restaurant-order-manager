@@ -45,7 +45,7 @@ router.route("/:sheet_title")
         try {
             const sheetTitle = req.params.sheet_title;
             const orders = await getOrders(sheetTitle);
-            res.render("orders/allOrders", { sheetTitle, orders, formatCreatedAt, formatPickupTime });
+            res.render("orders/allOrders", { sheetTitle, orders, formatCreatedAt, formatPickupTime, slugToTitleCase });
         } catch (error) {
             console.log(error);
             res.status(500).send("Failed to load orders.")
