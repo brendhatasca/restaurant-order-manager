@@ -3,7 +3,7 @@ const router = express.Router();
 
 import { slugToTitleCase } from "../../helpers/formatString.js";
 import { formatCreatedAt, formatPickupTime } from "../../helpers/formatDate.js";
-import { appendRow, getOrders, getOrderById } from "../../services/googleSheetsService.js";
+import { appendRow, getOrders, getOrderById, deleteOrder } from "../../services/googleSheetsService.js";
 
 // route handler for HTTP GET req to the root path
 router.get("/", (req, res) => {
@@ -19,6 +19,24 @@ router.param("order_id", (req, res, next, order_id) => {
     req.orderId = {order_id}
     next();
 });
+
+router.delete("/:sheet_title/api/delete-order", async (req, res) => {
+    const sheetName = req.body.sheetName;
+    const orderId = req.body.orderId;
+    console.log(sheetName, orderId)
+    try {
+        await deleteOrder(sheetName, orderId)
+        res.status(200).json({ 
+            success: true,
+            orderId: orderId 
+        });
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            message: "Could not delete order."
+        })
+    }
+})
 
 // route handler for HTTP get req for the new order page
 router.get("/:sheet_title/new", (req, res) => {
@@ -59,7 +77,7 @@ router.route("/:sheet_title")
             console.log(error);
             res.status(500).send("Failed to create order.")
         } 
-    })
+    });
 
 
 

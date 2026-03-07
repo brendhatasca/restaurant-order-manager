@@ -121,6 +121,12 @@ export async function getOrderById(sheetName, orderId) {
     return match ? match.toObject() : null;
 };
 
+/**
+ * Delete order by given ID.
+ *
+ * @param {string} sheetName - Name of the sheet that contains the order.
+ * @param {number} orderId - ID of the order to be deleted.
+ */
 export async function deleteOrder(sheetName, orderId) {
     const doc = await accessSpreadsheet();
     const sheet = doc.sheetsByTitle[sheetName];

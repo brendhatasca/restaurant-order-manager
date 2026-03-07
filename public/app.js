@@ -3,36 +3,30 @@ const eventsContainer = document.getElementById("events-container");
 const createNewOrderBtn = document.getElementById("btn-new-order");
 const orderListWrapper = document.querySelectorAll(".order-list-wrapper");
 const tbody = document.querySelector("tbody");
+const deleteBtn = document.querySelectorAll(".btn-delete")
 
-function titleCase(str) {
-  // Convert the entire string to lowercase first to ensure consistency
-  return str
-    .toLowerCase()
-    .split(' ') // Split the string into an array of words by space
-    .map(word => {
-      // Capitalize the first letter and concatenate with the rest of the word in lowercase
-      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-    })
-    .join(' '); // Join the words back into a single string with spaces
-}
+const slugify = (name) => name.replace(/\s+/g, '-').toLowerCase();
 
 if (createEventBtn) {
     createEventBtn.addEventListener("click", () => {
         const eventName = prompt("Enter folder name (E.g: Christmas Eve):")
         if (!eventName) return
 
-    eventName =  titleCase(eventName)
-
         // Send folder name to backend, which create a new Google Sheets Worksheet
         fetch("dashboard/api/create-sheet", {
             method: "POST",
             headers: { "Content-type": "application/json" },
-            body: JSON.stringify({ sheetName: eventName })
+            body: JSON.stringify({ sheetName: slugify(eventName) })
         })
         .then(res => res.json())
         .then(data => {
-            if(data.success) alert(`${eventName} created.`)
-        });
+            if(data.success) {
+                alert(`${eventName} created.`)
+            } else {
+                alert("Failed to create event.")
+            }
+        })
+        .catch(err => console.error(err))
     });
 };
 
@@ -43,14 +37,6 @@ if (createNewOrderBtn) {
         window.location.href = `/orders/${eventName}/new`;
     });
 };
-
-// if (orderListWrapper) {
-//     orderListWrapper.forEach(order => {
-//         order.addEventListener("click", (e) => {
-//             console.log(e.target)
-//         });
-//     })
-// }
 
 if (tbody) {
     tbody.addEventListener("click", (e) => {
@@ -68,3 +54,37 @@ if (tbody) {
         window.location.href = `/orders/${sheetTitle}/${orderId}`
     });
 };
+
+if (deleteBtn) {
+    deleteBtn.forEach(btn => btn.addEventListener("click", (e) => {
+        console.log(e.target)
+
+        const button = e.target.closest(".btn-delete");
+        if(!button) return;
+
+        const sheetTitle = button.dataset.sheetTitle;
+        const orderId = button.dataset.orderId;
+        console.log(sheetTitle, orderId)
+        if (!orderId || !sheetTitle) return
+
+        fetch(`${sheetTitle}/api/delete-order`, {
+            method: "DELETE",
+            headers: { "Content-type": "application/json"},
+            body: JSON.stringify({
+                sheetName: slugify(sheetTitle),
+                orderId: slugify(orderId)
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                alert("Order successfully deleted.")
+                window.location.reload()
+            } else {
+                alert("ERROR: Could not delete order.")
+            }
+        })
+        .catch(err => console.error(err))
+    }))
+
+}
