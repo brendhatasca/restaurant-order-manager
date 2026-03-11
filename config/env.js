@@ -2,7 +2,7 @@ import 'dotenv/config'
 
 export const env = {
     googleServiceEmail: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-    googlePrivateKey: process.env.GOOGLE_PRIVATE_KEY,
+    googlePrivateKey: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
     googleSheetsID: process.env.GOOGLE_SHEET_ID,
     port: process.env.PORT
 }
