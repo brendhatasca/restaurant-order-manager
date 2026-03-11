@@ -143,6 +143,21 @@ export async function deleteOrder(sheetName, orderId) {
     }
 }
 
+export async function updateOrderById(sheetName, orderId, newData) {
+    const doc = await accessSpreadsheet();
+    const sheet = doc.sheetsByTitle[sheetName];
+    const rows = await sheet.getRows();
+
+    // find order that matches Order ID
+    const order = rows.find(row => row.get("orderId") == orderId);
+
+    if (order) {
+        order.assign(newData);
+        await order.save();
+    }
+
+}
+
 export async function getWorksheets() {
     const doc = await accessSpreadsheet();
     const sheets = doc.sheetsByIndex;

@@ -3,7 +3,8 @@ const eventsContainer = document.getElementById("events-container");
 const createNewOrderBtn = document.getElementById("btn-new-order");
 const orderListWrapper = document.querySelectorAll(".order-list-wrapper");
 const tbody = document.querySelector("tbody");
-const deleteBtn = document.querySelectorAll(".btn-delete")
+const deleteBtns = document.querySelectorAll(".btn-delete");
+const editBtns = document.querySelectorAll(".btn-edit");
 
 const slugify = (name) => name.replace(/\s+/g, '-').toLowerCase();
 
@@ -33,7 +34,6 @@ if (createEventBtn) {
 if (createNewOrderBtn) {
     createNewOrderBtn.addEventListener("click", (e) => {
         const eventName = e.target.dataset.event;
-        console.log(eventName);
         window.location.href = `/orders/${eventName}/new`;
     });
 };
@@ -55,8 +55,8 @@ if (tbody) {
     });
 };
 
-if (deleteBtn) {
-    deleteBtn.forEach(btn => btn.addEventListener("click", (e) => {
+if (deleteBtns) {
+    deleteBtns.forEach(btn => btn.addEventListener("click", (e) => {
         console.log(e.target)
 
         const button = e.target.closest(".btn-delete");
@@ -64,7 +64,7 @@ if (deleteBtn) {
 
         const sheetTitle = button.dataset.sheetTitle;
         const orderId = button.dataset.orderId;
-        console.log(sheetTitle, orderId)
+
         if (!orderId || !sheetTitle) return
 
         fetch(`${sheetTitle}/api/delete-order`, {
@@ -86,5 +86,19 @@ if (deleteBtn) {
         })
         .catch(err => console.error(err))
     }))
+}
 
+if(editBtns) {
+    editBtns.forEach(btn => btn.addEventListener("click", (e) => {
+        console.log(e.target)
+        const row = e.target.closest(".order-list-wrapper");
+        if(!row) return;
+
+        const sheetTitle = row.dataset.sheetTitle;
+        const orderId = row.dataset.orderId;
+
+        console.log(sheetTitle, orderId)
+
+        window.location.href = `/orders/${sheetTitle}/${orderId}/edit`
+    }))
 }

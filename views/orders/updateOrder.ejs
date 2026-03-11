@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <title>Update Order</title>
+</head>
+<body>
+
+    <div class="page-wrapper">
+
+    <!-- Back nav -->
+    <a class="back-link" href="/orders/<%= sheetTitle %>">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M12 5l-7 7 7 7"/>
+      </svg>
+      Back to orders
+    </a>
+    <header class="page-header">
+        <h1>Update Order <span>#<%= order.orderId %></span></h1>
+    </header>
+
+    <div class="card">
+        <div class="card-band"></div>
+        <div class="card-body">
+
+            <form action="/orders/<%= sheetTitle %>/<%= order.orderId %>" method="post">
+
+                <!-- Customer info -->
+                <p class="section-label">Customer details</p>
+                <div class="row">
+                    <div class="field">
+                        <label for="fullName">Full Name*</label>
+                        <input type="text" id="fullName" name="customerName" placeholder="Jane Smith" value="<%= order.customerName%>" required />
+                    </div>
+                    <div class="field">
+                        <label for="phone">Phone Number*</label>
+                        <input type="tel"
+                            id="phone"
+                            name="phone"
+                            placeholder="555-867-5309"
+                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                            value="<%= order.phone %>"
+                            required />
+                        <span class="hint">Format: 000-000-0000</span>
+                    </div>
+                </div>
+
+                <div class="field" style="margin-top: 18px;">
+                    <label for="pickupTime">Pick-up Time*</label>
+                    <input type="time"
+                        id="pickupTime"
+                        name="pickupTime"
+                        min="08:00"
+                        max="21:00"
+                        step="900"
+                        value="<%= order.pickupTime %>"
+                        required />
+                    <span class="hint">Available in 15-minute slots</span>
+                </div>
+
+                <!-- Order items -->
+                <p class="section-label">Order items</p>
+
+                <div class="row">
+                    <div class="field">
+                        <label for="cookedFood">Cooked Food</label>
+                        <textarea id="cookedFood" name="cookedFood" placeholder="e.g. Lobster roll × 2…"
+                            oninput="this.style.height='';this.style.height=this.scrollHeight+'px'"
+                            ><%= order.cookedFood %></textarea>
+                    </div>
+                    <div class="field">
+                        <label for="rawSeafood">Raw Seafood</label>
+                        <textarea id="rawSeafood" name="rawSeafood" placeholder="e.g. Tuna 1 lb…"
+                            oninput="this.style.height='';this.style.height=this.scrollHeight+'px'"><%= order.rawSeafood %></textarea>
+                    </div>
+                    <div class="field">
+                        <label for="oysters">Oysters</label>
+                        <textarea id="oysters" name="oysters" placeholder="e.g. 12x shucked ..."
+                            oninput="this.style.height='';this.style.height=this.scrollHeight+'px'"><%= order.oysters %></textarea>
+                    </div>
+                    <div class="field">
+                        <label for="platters">Platters</label>
+                        <textarea id="platters" name="platters" placeholder="e.g. Seafood platter L…"
+                            oninput="this.style.height='';this.style.height=this.scrollHeight+'px'"
+                            ><%= order.platters %></textarea>
+                    </div>
+                </div>
+
+                <!-- Notes -->
+                <p class="section-label">Additional notes</p>
+                <div class="field">
+                    <textarea id="notes" name="notes" placeholder="Allergies, special requests, or anything else…"
+                        oninput="this.style.height='';this.style.height=this.scrollHeight+'px'"
+                        style="min-height:90px;"><%= order.notes %></textarea>
+                </div>
+
+                <div class="submit-wrap">
+                    <span class="submit-note">All starred fields are required before submitting.</span>
+                    <button type="submit">Update Order →</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+    
+</body>
+</html>

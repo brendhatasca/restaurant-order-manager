@@ -3,7 +3,7 @@ const router = express.Router();
 
 import { slugToTitleCase } from "../../helpers/formatString.js";
 import { formatCreatedAt, formatPickupTime } from "../../helpers/formatDate.js";
-import { appendRow, getOrders, getOrderById, deleteOrder } from "../../services/googleSheetsService.js";
+import { appendRow, getOrders, getOrderById, deleteOrder, updateOrderById } from "../../services/googleSheetsService.js";
 
 // route handler for HTTP GET req to the root path
 router.get("/", (req, res) => {
@@ -19,6 +19,16 @@ router.param("order_id", (req, res, next, order_id) => {
     req.orderId = {order_id}
     next();
 });
+
+router.get("/:sheet_title/:order_id/edit", async (req, res) => {
+    const sheetTitle = req.params.sheet_title;
+    const orderId = req.params.order_id;
+
+    const order = await getOrderById(sheetTitle, orderId)
+
+    res.render("orders/updateOrder", { sheetTitle, order, formatPickupTime })
+})
+
 
 router.delete("/:sheet_title/api/delete-order", async (req, res) => {
     const sheetName = req.body.sheetName;
@@ -44,6 +54,7 @@ router.get("/:sheet_title/new", (req, res) => {
     res.render("orders/newOrder", { firstName: "Brendha", sheetTitle });
 });
 
+// route handler for order details
 router.route("/:sheet_title/:order_id")
     .get(async (req, res) => {
         try {
@@ -54,6 +65,19 @@ router.route("/:sheet_title/:order_id")
         } catch (err) {
             console.log(err);
             res.status(500).send("Failed to retrieve order.")
+        }
+    })
+    .post(async (req, res) => {
+        try {
+            console.log("hey")
+            const sheetTitle = req.params.sheet_title;
+            const orderId = req.params.order_id;
+            console.log(orderId, sheetTitle) // ok
+            console.log(req.body)
+            await updateOrderById(sheetTitle, orderId, req.body)
+            res.redirect(`/orders/${sheetTitle}/${orderId}`)
+        } catch (err) {
+            res.status(500).send("Failed to update order.")
         }
     })
 
